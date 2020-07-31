@@ -8,7 +8,7 @@ import {
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Styles from './login-styles.scss'
 
 type Props ={
@@ -16,6 +16,7 @@ type Props ={
   authentication: Authentication
 }
 const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+  const history = useHistory()
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -45,6 +46,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       })
       const account = await authentication.auth({ email: state.email, password: state.password })
       localStorage.setItem('accessToken', account.acessToken)
+      history.replace('/')
     } catch (error) {
       setState({
         ...state,
