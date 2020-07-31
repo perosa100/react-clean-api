@@ -8,6 +8,7 @@ import {
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Styles from './login-styles.scss'
 
 type Props ={
@@ -66,7 +67,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
 
           <button data-testid="submit" disabled={!!state.emailError || !!state.passwordError} className={Styles.submit} type="submit">Entrar</button>
 
-          <span className={Styles.link}>Cadastre-se</span>
+          <Link to="/signup" data-testid="signup" className={Styles.link}>Cadastre-se</Link>
           < FormStatus />
         </form>
       </Context.Provider>
