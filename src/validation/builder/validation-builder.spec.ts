@@ -1,6 +1,7 @@
 import { EmailValidation, MinLengthValidation, RequireFieldValidation } from '@/validation/validators'
 import faker from 'faker'
 import { ValidationBuilder as sut } from './validation-builder'
+
 describe('ValidationBuilder', () => {
   test('Should return RequiredFieldValidation', () => {
     const field = faker.database.column()
