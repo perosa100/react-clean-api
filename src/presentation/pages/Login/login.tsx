@@ -30,12 +30,19 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     })
   }, [state.password, state.email])
 
+  const handleSubit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    setState({
+      ...state,
+      isLoading: true
+    })
+  }
   return (
     <div className={Styles.login}>
 
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form action="" className={Styles.form}>
+        <form className={Styles.form} onSubmit={handleSubit}>
 
           <h2>Login</h2>
 
