@@ -1,4 +1,5 @@
 import { InvalidCredentialsError } from '@/domain/errors'
+import { Login } from '@/presentation/pages'
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test'
 import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 import faker from 'faker'
@@ -6,7 +7,6 @@ import { createMemoryHistory } from 'history'
 import 'jest-localstorage-mock'
 import React from 'react'
 import { Router } from 'react-router-dom'
-import Login from './login'
 type SutTypes ={
   sut: RenderResult
   authenticationSpy: AuthenticationSpy
