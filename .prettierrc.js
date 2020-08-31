@@ -2,5 +2,6 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'none',
   semi: false,
-  spaceBeforeFunctionParen: true
+  spaceBeforeFunctionParen: true,
+  bracketSpacing: true
 }
