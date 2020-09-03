@@ -9,7 +9,7 @@ import Styles from './signup-styles.scss'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import { AddAccont, SaveAccessToken } from '@/domain/usecases'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 type Props = {
   validation: Validation
@@ -124,7 +124,14 @@ const SignUp: React.FC<Props> = ({
             Cadastrar
           </button>
 
-          <span className={Styles.link}>Voltar para o login</span>
+          <Link
+            to="/login"
+            replace
+            data-testid="login-link"
+            className={Styles.link}
+          >
+            Voltar para o login
+          </Link>
 
           <FormStatus />
         </form>

@@ -98,7 +98,7 @@ const Login: React.FC<Props> = ({
             Entrar
           </button>
 
-          <Link to="/signup" data-testid="signup" className={Styles.link}>
+          <Link to="/signup" data-testid="signup-link" className={Styles.link}>
             Cadastre-se
           </Link>
           <FormStatus />
