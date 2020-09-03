@@ -1,5 +1,10 @@
 import React from 'react'
-import { AddAccountSpy, Helper, ValidationStub } from '@/presentation/test'
+import {
+  AddAccountSpy,
+  Helper,
+  SaveAccessTokenMock,
+  ValidationStub
+} from '@/presentation/test'
 import SignUp from './signup'
 import {
   fireEvent,
@@ -9,6 +14,8 @@ import {
 } from '@testing-library/react'
 import faker from 'faker'
 import { EmailInUseError } from '@/domain/errors'
+import { createMemoryHistory } from 'history'
+import { Router } from 'react-router-dom'
 
 type SutParams = {
   validationError: string
@@ -17,8 +24,11 @@ type SutParams = {
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
-
+const history = createMemoryHistory({
+  initialEntries: ['/signup']
+})
 const simulateValidSubmit = async (
   sut: RenderResult,
   name = faker.name.findName(),
@@ -38,13 +48,21 @@ const simulateValidSubmit = async (
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   validationStub.errorMessage = params?.validationError
   const sut = render(
-    <SignUp validation={validationStub} addAccount={addAccountSpy} />
+    <Router history={history}>
+      <SignUp
+        addAccount={addAccountSpy}
+        validation={validationStub}
+        saveAccessToken={saveAccessTokenMock}
+      />
+    </Router>
   )
   return {
     sut,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
 }
 
@@ -163,5 +181,15 @@ describe('SignUpComponent', () => {
     await simulateValidSubmit(sut)
     Helper.testElementText(sut, 'main-error', error.message)
     Helper.testChildCount(sut, 'error-wrap', 1)
+  })
+
+  test('Should call SaveAccessToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit(sut)
+    expect(saveAccessTokenMock.accessToken).toBe(
+      addAccountSpy.account.acessToken
+    )
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
   })
 })
