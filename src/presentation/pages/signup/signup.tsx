@@ -1,16 +1,21 @@
-
-import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
+import {
+  Footer,
+  FormStatus,
+  Input,
+  LoginHeader
+} from '@/presentation/components'
 import React, { useEffect, useState } from 'react'
 import Styles from './signup-styles.scss'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
+import { AddAccont } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
-
+  addAccount: AddAccont
 }
-const SignUp: React.FC <Props> = ({ validation }: Props) => {
-  const [state,setState] = useState({
+const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
     name: '',
     email: '',
@@ -22,12 +27,21 @@ const SignUp: React.FC <Props> = ({ validation }: Props) => {
     passwordConfirmationError: '',
     mainError: ''
   })
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault()
 
     setState({
       ...state,
       isLoading: true
+    })
+
+    await addAccount.add({
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation
     })
   }
 
@@ -37,36 +51,59 @@ const SignUp: React.FC <Props> = ({ validation }: Props) => {
       nameError: validation.validate('name', state.name),
       emailError: validation.validate('email', state.email),
       passwordError: validation.validate('password', state.password),
-      passwordConfirmationError: validation.validate('passwordConfirmation', state.passwordConfirmation)
+      passwordConfirmationError: validation.validate(
+        'passwordConfirmation',
+        state.passwordConfirmation
+      )
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   return (
     <div className={Styles.signup}>
       <LoginHeader />
-      <Context.Provider value={ { state,setState } }>
-
-        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
-
+      <Context.Provider value={{ state, setState }}>
+        <form
+          data-testid="form"
+          className={Styles.form}
+          onSubmit={handleSubmit}
+        >
           <h2>Criar Conta</h2>
 
-          < Input type="text" name="name" placeholder="Digite seu nome" />
-          < Input type="email" name="email" placeholder="Digite seu e-mail" />
+          <Input type="text" name="name" placeholder="Digite seu nome" />
+          <Input type="email" name="email" placeholder="Digite seu e-mail" />
 
-          < Input type="password" name="password" placeholder="Digite sua senha" />
-          < Input type="password" name="passwordConfirmation" placeholder="Repita sua senha" />
+          <Input
+            type="password"
+            name="password"
+            placeholder="Digite sua senha"
+          />
+          <Input
+            type="password"
+            name="passwordConfirmation"
+            placeholder="Repita sua senha"
+          />
 
-          <button data-testid="submit" className={ Styles.submit } disabled={ !!state.nameError || !!state.emailError || !!state.passwordError || !!state.passwordConfirmationError } type="submit">Cadastrar</button>
+          <button
+            data-testid="submit"
+            className={Styles.submit}
+            disabled={
+              !!state.nameError ||
+              !!state.emailError ||
+              !!state.passwordError ||
+              !!state.passwordConfirmationError
+            }
+            type="submit"
+          >
+            Cadastrar
+          </button>
 
-          <span className={ Styles.link }>Voltar para o login</span>
+          <span className={Styles.link}>Voltar para o login</span>
 
-          < FormStatus />
-
+          <FormStatus />
         </form>
-
       </Context.Provider>
 
-      < Footer />
+      <Footer />
     </div>
   )
 }
