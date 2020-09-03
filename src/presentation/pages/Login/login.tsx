@@ -97,7 +97,7 @@ const Login: React.FC<Props> = ({
             placeholder="Digite sua senha"
           />
 
-          <SubmitButton text="Logar" />
+          <SubmitButton text="Entrar" />
 
           <Link to="/signup" data-testid="signup-link" className={Styles.link}>
             Cadastre-se

@@ -1,4 +1,4 @@
-import { makeRemoteAuthentication } from '@/main/usecases/authentication/remote-authentication-factory'
+import { makeRemoteAuthentication } from '@/main/usecases/add-account/remote-authentication-factory'
 import { makeLocalSaveAccessToken } from '@/main/usecases/save-access-token/save-access-token-factory'
 import { Login } from '@/presentation/pages'
 import React from 'react'
