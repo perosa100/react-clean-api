@@ -13,11 +13,7 @@
   "env": {
     "cypress/globals": true
   },
-  "plugins": [
-    "react",
-    "cypress",
-    "css-modules"
-  ],
+  "plugins": ["react", "cypress", "css-modules"],
   "parserOptions": {
     "project": "./tsconfig-eslint.json"
   },
@@ -28,6 +24,7 @@
     "@typescript-eslint/comma-spacing": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/method-signature-style": "off",
     "no-redeclare": "off",
