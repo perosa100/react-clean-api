@@ -1,4 +1,4 @@
-@import "../../styles/colors.scss";
+@import '../../styles/colors.scss';
 
 .login {
   display: flex;
@@ -23,18 +23,10 @@
       text-transform: uppercase;
     }
 
-    .submit {
+    button {
       margin-top: 32px;
-
-      &:disabled {
-        background-color: $disabled;
-        color: $black;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
     }
+
     .link {
       text-align: center;
       color: $primary;
