@@ -1,5 +1,5 @@
 import { InvalidCredentialsError } from '@/domain/errors'
-import { Login } from '@/presentation/pages'
+import Login from './login'
 import {
   AuthenticationSpy,
   SaveAccessTokenMock,

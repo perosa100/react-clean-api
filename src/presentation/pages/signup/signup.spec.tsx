@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  AddAccountSpy,
   Helper,
   SaveAccessTokenMock,
   ValidationStub
@@ -13,9 +12,10 @@ import {
   waitFor
 } from '@testing-library/react'
 import faker from 'faker'
-import { EmailInUseError } from '@/domain/errors'
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
+import { AddAccountSpy } from '@/presentation/test/mock-addAccount'
+import { EmailInUseError } from '@/domain/errors/email-in-use-error'
 
 type SutParams = {
   validationError: string
