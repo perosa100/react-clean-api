@@ -22,9 +22,10 @@ const history = createMemoryHistory({
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  validationStub.errorMessage = params?.validationError
+
   const saveAccessTokenMock = new SaveAccessTokenMock()
   const authenticationSpy = new AuthenticationSpy()
-  validationStub.errorMessage = params?.validationError
   const sut = render(
     <Router history={history}>
       <Login saveAccessToken={saveAccessTokenMock} validation={validationStub} authentication={authenticationSpy} />
