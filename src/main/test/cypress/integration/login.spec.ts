@@ -55,4 +55,24 @@ describe('Login', () => {
 
     cy.get('[data-testid="error-wrap"]').should('not.have.descendants')
   })
+
+  it('should present error if invalid credentias are provided', () => {
+    cy.get('[data-testid="email"]').focus().type(faker.internet.email())
+
+    cy.get('[data-testid="password"]')
+      .focus()
+      .type(faker.random.alphaNumeric(5))
+
+    cy.get('[data-testid="submit"]').click()
+
+    cy.get('[data-testid="error-wrap"]')
+      .get('[data-testid="spinner"]')
+      .should('exist')
+      .get('[data-testid="main-error"]')
+      .should('not.exist')
+      .get('[data-testid="spinner"]')
+      .should('not.exist')
+      .get('[data-testid="main-error"]')
+      .should('exist')
+  })
 })
