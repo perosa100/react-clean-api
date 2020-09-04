@@ -3,5 +3,9 @@
     "types": ["cypress"],
     "esModuleInterop": true
   },
-  "include": ["../../../../node_modules/cypress", "./*/*.ts"]
+  "include": [
+    "../../../../node_modules/cypress",
+    "./*/*.ts",
+    "support/index.js"
+  ]
 }
