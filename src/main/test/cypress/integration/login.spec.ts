@@ -1,4 +1,5 @@
 import faker from 'faker'
+const baseUrl: string = Cypress.config().baseUrl
 describe('Login', () => {
   beforeEach(() => {
     cy.visit('login')
@@ -73,6 +74,28 @@ describe('Login', () => {
       .get('[data-testid="spinner"]')
       .should('not.exist')
       .get('[data-testid="main-error"]')
+      .should('contain.text', 'Credenciais Inválidas')
+    cy.url().should('eq', `${baseUrl}/login`)
+  })
+
+  it('should  prevent save accessToken if valid credeitnals are provided', () => {
+    cy.get('[data-testid="email"]').focus().type('teste@teste.com')
+
+    cy.get('[data-testid="password"]').focus().type('teste@teste.com')
+
+    cy.get('[data-testid="submit"]').click()
+
+    cy.get('[data-testid="error-wrap"]')
+      .get('[data-testid="spinner"]')
       .should('exist')
+      .get('[data-testid="main-error"]')
+      .should('not.exist')
+      .get('[data-testid="spinner"]')
+      .should('not.exist')
+
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then((window) =>
+      assert.isOk(window.localStorage.getItem('accessToken'))
+    )
   })
 })
