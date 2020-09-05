@@ -187,7 +187,7 @@ describe('SignUpComponent', () => {
     const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
     await simulateValidSubmit(sut)
     expect(saveAccessTokenMock.accessToken).toBe(
-      addAccountSpy.account.acessToken
+      addAccountSpy.account.accessToken
     )
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')

@@ -56,7 +56,7 @@ const SignUp: React.FC<Props> = ({
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
-      await saveAccessToken.save(account.acessToken)
+      await saveAccessToken.save(account.accessToken)
 
       history.replace('/')
     } catch (error) {
