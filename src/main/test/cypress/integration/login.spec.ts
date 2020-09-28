@@ -125,8 +125,7 @@ describe('Login', () => {
     cy.get('[data-testid="password"]')
       .focus()
       .type(faker.random.alphaNumeric(5))
-
-    cy.get('[data-testid="submit"]').click()
+      .type('{enter}')
 
     cy.get('[data-testid="spinner"]').should('not.exist')
 
