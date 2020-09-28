@@ -1,7 +1,5 @@
-import { AddAccountParams } from '@/domain/usecases/add-account'
 import { HttpPostClientSpy } from '@/data/test'
 import { AccountModel } from '@/domain/models'
-import { AuthenticationParams } from '@/domain/usecases'
 import faker from 'faker'
 import { RemoteAddAccount } from './remote-add-account'
 import { mockAccountModel, mockAddAccountParams } from '@/domain/test'
@@ -10,12 +8,12 @@ import { EmailInUseError, UnexpectedError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RemoteAddAccount
-  httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>
+  httpPostClientSpy: HttpPostClientSpy<AccountModel>
 }
 
 // cria valores fakes e variaveis fake
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
-  const httpPostClientSpy = new HttpPostClientSpy<AddAccountParams, AccountModel>()
+  const httpPostClientSpy = new HttpPostClientSpy<AccountModel>()
   // sut é o que é testando em si
   const sut = new RemoteAddAccount(url, httpPostClientSpy)
   return {
