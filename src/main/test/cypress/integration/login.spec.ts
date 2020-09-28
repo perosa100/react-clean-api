@@ -110,31 +110,6 @@ describe('Login', () => {
     cy.url().should('eq', `${baseUrl}/login`)
   })
 
-  it('should  prevent save accessToken if valid credentials are provided', () => {
-    cy.route({
-      method: 'POST',
-      url: /login/,
-      status: 200,
-      response: {
-        accessToken: faker.random.uuid()
-      }
-    })
-
-    cy.get('[data-testid="email"]').focus().type('teste@teste.com')
-
-    cy.get('[data-testid="password"]').focus().type('teste@teste.com')
-
-    cy.get('[data-testid="submit"]').click()
-
-    cy.get('[data-testid="main-error"]').should('not.exist')
-    cy.get('[data-testid="spinner"]').should('not.exist')
-
-    cy.url().should('eq', `${baseUrl}/`)
-    cy.window().then((window) =>
-      assert.isOk(window.localStorage.getItem('accessToken'))
-    )
-  })
-
   it('should  present UnexpecetedError if invalid data is returned', () => {
     cy.route({
       method: 'POST',
@@ -160,5 +135,32 @@ describe('Login', () => {
       'Algo de errado aconteceu. Tente novamente em breve.'
     )
     cy.url().should('eq', `${baseUrl}/login`)
+  })
+
+  it('should  prevent save accessToken if valid credentials are provided', () => {
+    cy.route({
+      method: 'POST',
+      url: /login/,
+      status: 200,
+      response: {
+        accessToken: faker.random.uuid()
+      }
+    })
+
+    cy.get('[data-testid="email"]').focus().type(faker.internet.email())
+
+    cy.get('[data-testid="password"]')
+      .focus()
+      .type(faker.random.alphaNumeric(5))
+
+    cy.get('[data-testid="submit"]').click()
+
+    cy.get('[data-testid="main-error"]').should('not.exist')
+    cy.get('[data-testid="spinner"]').should('not.exist')
+
+    cy.url().should('eq', `${baseUrl}/`)
+    cy.window().then((window) =>
+      assert.isOk(window.localStorage.getItem('accessToken'))
+    )
   })
 })
