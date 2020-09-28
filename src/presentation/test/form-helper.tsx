@@ -22,9 +22,18 @@ export const testButtonIsDisabled = (
 export const testStatusForField = (
   sut: RenderResult,
   fieldName: string,
-  validationError?: string
+  validationError: string = ''
 ): void => {
+  const wrap = sut.getByTestId(`${fieldName}-wrap`)
+  const field = sut.getByTestId(fieldName)
+  const label = sut.getByTestId(`${fieldName}-label`)
   const fieldStatus = sut.getByTestId(`${fieldName}-status`)
+
+  expect(wrap.getAttribute('data-status')).toBe(
+    validationError ? 'invalid' : 'valid'
+  )
+  expect(field.title).toBe(validationError)
+  expect(label.title).toBe(validationError)
   expect(fieldStatus.title).toBe(validationError || 'Tudo certo')
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
 }

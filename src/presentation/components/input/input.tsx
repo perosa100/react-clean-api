@@ -12,13 +12,18 @@ const Input: React.FC<Props> = (props: Props) => {
   const error = state[`${props.name}Error`]
   const inputRef = useRef<HTMLInputElement>()
   return (
-    <div className={Styles.inputWrap}>
+    <div
+      className={Styles.inputWrap}
+      data-status={error ? 'invalid' : 'valid'}
+      data-testid={`${props.name}-wrap`}
+    >
       <input
         {...props}
         ref={inputRef}
         placeholder=" "
         data-testid={props.name}
         readOnly
+        title={error}
         onFocus={(e) => {
           e.target.readOnly = false
         }}
@@ -30,6 +35,8 @@ const Input: React.FC<Props> = (props: Props) => {
         }}
       />
       <label
+        data-testid={`${props.name}-label`}
+        title={error}
         onClick={() => {
           inputRef.current.focus()
         }}
