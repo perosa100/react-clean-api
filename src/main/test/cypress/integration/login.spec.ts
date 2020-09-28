@@ -182,4 +182,22 @@ describe('Login', () => {
     cy.get('[data-testid="submit"]').dblclick()
     cy.get('@request.all').should('have.length', 1)
   })
+
+  it('should  not call submit if form is invalid', () => {
+    cy.route({
+      method: 'POST',
+      url: /login/,
+      status: 200,
+      response: {
+        accessToken: faker.random.uuid()
+      }
+    }).as('request')
+
+    cy.get('[data-testid="email"]')
+      .focus()
+      .type(faker.internet.email())
+      .type('{enter}')
+
+    cy.get('@request.all').should('have.length', 0)
+  })
 })
