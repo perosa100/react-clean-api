@@ -1,7 +1,9 @@
 import faker from 'faker'
+const baseUrl: string = Cypress.config().baseUrl
 
 describe('Signup', () => {
   beforeEach(() => {
+    cy.server()
     cy.visit('signup')
   })
   it('should signup loads with correct initial state', () => {
@@ -92,5 +94,46 @@ describe('Signup', () => {
     cy.get('[data-testid="submit"]').should('not.have.attr', 'disabled')
 
     cy.get('[data-testid="error-wrap"]').should('not.have.descendants')
+  })
+  it('should present InvalidCredentialsError  on 403', () => {
+    cy.route({
+      method: 'POST',
+      url: /signup/,
+      status: 403,
+      response: {
+        error: faker.random.words()
+      }
+    })
+    cy.get('[data-testid="name"]').focus().type(faker.name.findName())
+    cy.get('[data-testid="name-status"]')
+      .should('have.attr', 'title', 'Tudo certo')
+      .should('contain.text', '🟢')
+
+    cy.get('[data-testid="email"]').focus().type(faker.internet.email())
+    cy.get('[data-testid="email-status"]')
+      .should('have.attr', 'title', 'Tudo certo')
+      .should('contain.text', '🟢')
+
+    const password = faker.random.alphaNumeric(6)
+
+    cy.get('[data-testid="password"]').focus().type(password)
+    cy.get('[data-testid="password-status"]')
+      .should('have.attr', 'title', 'Tudo certo')
+      .should('contain.text', '🟢')
+
+    cy.get('[data-testid="passwordConfirmation"]').focus().type(password)
+    cy.get('[data-testid="passwordConfirmation-status"]')
+      .should('have.attr', 'title', 'Tudo certo')
+      .should('contain.text', '🟢')
+
+    cy.get('[data-testid="submit"]').click()
+
+    cy.get('[data-testid="spinner"]').should('not.exist')
+
+    cy.get('[data-testid="main-error"]').should(
+      'contain.text',
+      'Esse e-mail já esta em uso'
+    )
+    cy.url().should('eq', `${baseUrl}/signup`)
   })
 })

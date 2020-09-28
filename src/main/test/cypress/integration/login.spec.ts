@@ -1,5 +1,6 @@
 import faker from 'faker'
 const baseUrl: string = Cypress.config().baseUrl
+
 describe('Login', () => {
   beforeEach(() => {
     cy.server()
