@@ -20,7 +20,7 @@ const Input: React.FC<Props> = (props: Props) => {
       <input
         {...props}
         ref={inputRef}
-        placeholder=" "
+        placeholder=""
         data-testid={props.name}
         readOnly
         title={error}
