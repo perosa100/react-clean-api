@@ -143,7 +143,8 @@ describe('Login', () => {
       url: /login/,
       status: 200,
       response: {
-        accessToken: faker.random.uuid()
+        accessToken: faker.random.uuid(),
+        name: faker.name.findName()
       }
     })
 
@@ -160,7 +161,7 @@ describe('Login', () => {
 
     cy.url().should('eq', `${baseUrl}/`)
     cy.window().then((window) =>
-      assert.isOk(window.localStorage.getItem('accessToken'))
+      assert.isOk(window.localStorage.getItem('account'))
     )
   })
 
@@ -170,7 +171,8 @@ describe('Login', () => {
       url: /login/,
       status: 200,
       response: {
-        accessToken: faker.random.uuid()
+        accessToken: faker.random.uuid(),
+        name: faker.name.findName()
       }
     }).as('request')
 
@@ -190,7 +192,8 @@ describe('Login', () => {
       url: /login/,
       status: 200,
       response: {
-        accessToken: faker.random.uuid()
+        accessToken: faker.random.uuid(),
+        name: faker.name.findName()
       }
     }).as('request')
 

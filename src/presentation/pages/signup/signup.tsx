@@ -9,18 +9,18 @@ import React, { useEffect, useState } from 'react'
 import Styles from './signup-styles.scss'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
-import { AddAccont, SaveAccessToken } from '@/domain/usecases'
+import { AddAccont, UpdateCurrentAccount } from '@/domain/usecases'
 import { Link, useHistory } from 'react-router-dom'
 
 type Props = {
   validation: Validation
   addAccount: AddAccont
-  saveAccessToken: SaveAccessToken
+  updateCurrentAccount: UpdateCurrentAccount
 }
 const SignUp: React.FC<Props> = ({
   validation,
   addAccount,
-  saveAccessToken
+  updateCurrentAccount
 }: Props) => {
   const history = useHistory()
 
@@ -56,7 +56,7 @@ const SignUp: React.FC<Props> = ({
         password: state.password,
         passwordConfirmation: state.passwordConfirmation
       })
-      await saveAccessToken.save(account.accessToken)
+      await updateCurrentAccount.save(account)
 
       history.replace('/')
     } catch (error) {
