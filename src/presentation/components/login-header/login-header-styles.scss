@@ -1,4 +1,4 @@
-@import "../../styles/colors.scss";
+@import '../../styles/colors.scss';
 
 .header {
   background-color: $primary;
@@ -16,5 +16,11 @@
   h1 {
     color: $white;
     margin: 5px 0px 20px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header {
+    border-top: 10px solid $primaryDark;
   }
 }
