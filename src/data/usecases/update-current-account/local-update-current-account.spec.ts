@@ -17,7 +17,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('LocalSaveAccessToken', () => {
+describe('LocalUpdateCurrentAccount', () => {
   test('Should call SetStorage with correct value', async () => {
     const { sut, setStorageSpy } = makeSut()
     const account = mockAccountModel()
@@ -28,7 +28,9 @@ describe('LocalSaveAccessToken', () => {
 
   test('Should throw if SetStorage throw', async () => {
     const { sut, setStorageSpy } = makeSut()
-    jest.spyOn(setStorageSpy, 'set').mockRejectedValueOnce(new Error())
+    jest.spyOn(setStorageSpy, 'set').mockImplementationOnce(() => {
+      throw new Error()
+    })
     const promise = sut.save(mockAccountModel())
     await expect(promise).rejects.toThrow(new Error())
   })
