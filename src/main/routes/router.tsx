@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { makeLogin } from '@/main/factories/pages/login/login-factory'
 import { makeSignUp } from '@/main/factories/pages/signup/signup-factory'
 
-import SurveyList from '../../presentation/pages/survey-list/load-list'
+import SurveyList from '../../presentation/pages/survey-list/survey-list'
 import { ApiContext } from '@/presentation/contexts'
 import {
   setCurrentAccountAdapter,
