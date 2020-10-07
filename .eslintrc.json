@@ -7,13 +7,12 @@
   "extends": [
     "standard-with-typescript",
     "plugin:react/recommended",
-    "plugin:cypress/recommended",
-    "plugin:css-modules/recommended"
+    "plugin:cypress/recommended"
   ],
   "env": {
     "cypress/globals": true
   },
-  "plugins": ["react", "cypress", "css-modules"],
+  "plugins": ["react", "cypress"],
   "parserOptions": {
     "project": "./tsconfig-eslint.json"
   },
@@ -24,9 +23,6 @@
     "@typescript-eslint/comma-spacing": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/no-namespace": "off",
-    "@typescript-eslint/space-before-function-paren": "off",
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/method-signature-style": "off",
     "no-redeclare": "off",
     "import/export": "off",
     "react/jsx-uses-react": "error",

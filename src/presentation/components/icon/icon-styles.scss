@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .iconWrap {
   padding: 10px;
@@ -12,7 +12,5 @@
 
   &.green {
     background-color: $valid;
-  }
-  .icon {
   }
 }

@@ -1,26 +1,24 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
-.header {
-  background-color: $primary;
+.headerWrap {
   display: flex;
   flex-direction: column;
-  border-top: 20px solid $primaryDark;
+  border-top: 40px solid $primaryDark;
+  background-color: $primary;
   align-items: center;
 
   img {
-    margin-top: 5px;
-    height: 70px;
-    width: 70px;
+    margin-top: 40px;
   }
 
   h1 {
     color: $white;
-    margin: 5px 0px 20px;
+    margin: 16px 0px 40px;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .header {
-    border-top: 10px solid $primaryDark;
+  .headerWrap {
+    border-top-width: 20px;
   }
 }

@@ -1,20 +1,20 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
-.signup {
+.signupWrap {
   display: flex;
   flex-direction: column;
-  height: 100vh; //pega altura da tela toda
-  justify-content: space-between; // fica header em cima footer embaixo e meio pega tudo
+  min-height: 100vh;
+  justify-content: space-between;
 
   .form {
     display: flex;
     flex-direction: column;
     width: 400px;
     background-color: $white;
-    padding: 15px 40px 15px 40px;
+    padding: 40px;
     border-radius: 8px;
     align-self: center;
-    box-shadow: 0px 1px 3px 0px $black;
+    box-shadow: 0px 1px 3px -1px $black;
 
     h2 {
       color: $primaryDark;
@@ -30,6 +30,7 @@
     .link {
       text-align: center;
       color: $primary;
+      text-transform: lowercase;
       margin-top: 16px;
       cursor: pointer;
 

@@ -1,7 +1,7 @@
-import { makeRemoteAuthentication } from '@/main/usecases/add-account/remote-authentication-factory'
+import { makeLoginValidation } from '@/main/factories/pages'
+import { makeRemoteAuthentication } from '@/main/factories/usecases'
 import { Login } from '@/presentation/pages'
 import React from 'react'
-import { makeLoginValidation } from './login-validation-factory'
 
 export const makeLogin: React.FC = () => {
   return (

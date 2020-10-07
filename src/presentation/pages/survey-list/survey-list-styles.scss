@@ -1,11 +1,11 @@
-@import '../../styles/colors.scss';
+@import "../../styles/colors.scss";
 
 .surveyListWrap {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
-  background-color: $disabled;
+  background-color: $disabledBackground;
 
   .contentWrap {
     display: flex;
@@ -23,8 +23,5 @@
       text-transform: uppercase;
       margin-bottom: 24px;
     }
-
-   
   }
 }
-

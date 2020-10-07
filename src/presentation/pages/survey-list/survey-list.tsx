@@ -1,41 +1,49 @@
-import { Footer, Header } from '@/presentation/components'
-import React, { useEffect, useState } from 'react'
-import { Error, SurveyContext, SurveyListItem } from './components'
-import Styles from './survey-list-styles.scss'
-import { LoadSurveyList } from '@/domain/usecases'
-import { SurveyModel } from '@/domain/models'
+import Styles from "./survey-list-styles.scss";
+import { Header, Footer, Error } from "@/presentation/components";
+import {
+  SurveyListItem,
+  surveyListState,
+} from "@/presentation/pages/survey-list/components";
+import { useErrorHandler } from "@/presentation/hooks";
+import { LoadSurveyList } from "@/domain/usecases";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import React, { useEffect } from "react";
 
 type Props = {
-  loadSurveyList: LoadSurveyList
-}
+  loadSurveyList: LoadSurveyList;
+};
 
 const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
-  const [state, setState] = useState({
-    surveys: [] as SurveyModel[],
-    error: '',
-    reload: false
-  })
+  const resetSurveyListState = useResetRecoilState(surveyListState);
+  const handleError = useErrorHandler((error: Error) => {
+    setState((old) => ({ ...old, error: error.message }));
+  });
+  const [state, setState] = useRecoilState(surveyListState);
+  const reload = (): void =>
+    setState((old) => ({ surveys: [], error: "", reload: !old.reload }));
 
+  useEffect(() => resetSurveyListState(), []);
   useEffect(() => {
     loadSurveyList
       .loadAll()
-      .then((surveys) => setState({ ...state, surveys }))
-      .catch((error) => setState({ ...state, error: error.message }))
-  }, [state.reload])
+      .then((surveys) => setState((old) => ({ ...old, surveys })))
+      .catch(handleError);
+  }, [state.reload]);
 
   return (
     <div className={Styles.surveyListWrap}>
       <Header />
-
       <div className={Styles.contentWrap}>
         <h2>Enquetes</h2>
-        <SurveyContext.Provider value={{ state, setState }}>
-          {state.error ? <Error /> : <SurveyListItem />}
-        </SurveyContext.Provider>
+        {state.error ? (
+          <Error error={state.error} reload={reload} />
+        ) : (
+          <SurveyListItem surveys={state.surveys} />
+        )}
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default SurveyList
+export default SurveyList;

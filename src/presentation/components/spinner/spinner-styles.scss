@@ -6,6 +6,12 @@
   width: 80px;
   height: 13px;
 
+  &.negative {
+    div {
+      background: $white;
+    }
+  }
+
   div {
     position: absolute;
     top: 0px;
@@ -41,6 +47,7 @@
   0% {
     transform: scale(0);
   }
+  
   100% {
     transform: scale(1);
   }
@@ -55,10 +62,12 @@
     transform: scale(0);
   }
 }
+
 @keyframes spinner2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(24px, 0);
   }

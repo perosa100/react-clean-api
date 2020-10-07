@@ -1,23 +1,19 @@
-import { SurveyModel } from '@/domain/models'
-import React, { useContext } from 'react'
 import Styles from './list-styles.scss'
-import {
-  SurveyContext,
-  SurveyItem,
-  SurveyItemEmpty
-} from '@/presentation/pages/survey-list/components'
+import { LoadSurveyList } from '@/domain/usecases'
+import { SurveyItem, SurveyItemEmpty } from '@/presentation/pages/survey-list/components'
+import React from 'react'
 
-const List: React.FC = () => {
-  const { state } = useContext(SurveyContext)
+type Props = {
+  surveys: LoadSurveyList.Model[]
+}
+
+const List: React.FC<Props> = ({ surveys }: Props) => {
   return (
-    <ul data-testid="survey-list" className={Styles.listWrap}>
-      {state.surveys.length ? (
-        state.surveys.map((survey: SurveyModel) => (
-          <SurveyItem key={survey.id} survey={survey} />
-        ))
-      ) : (
-        <SurveyItemEmpty />
-      )}
+    <ul className={Styles.listWrap} data-testid="survey-list">
+      {surveys.length
+        ? surveys.map((survey: LoadSurveyList.Model) => <SurveyItem key={survey.id} survey={survey} />)
+        : <SurveyItemEmpty />
+      }
     </ul>
   )
 }

@@ -1,4 +1,5 @@
-@import '../styles/colors.scss';
+@import "../styles/colors.scss";
+
 * {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -11,9 +12,9 @@ body {
   background-color: $background;
 }
 
-input[type='password'],
-input[type='text'],
-input[type='email'] {
+input[type="password"],
+input[type="email"],
+input[type="text"] {
   border: none;
   outline: none;
 }
@@ -25,15 +26,16 @@ button {
   border-radius: 8px;
   font-size: 16px;
   border: none;
-  padding: 0 16px;
+  padding: 0px 16px;
+  outline: none;
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.9;
   }
-
+  
   &:disabled {
-    background-color: $disabled;
-    color: $black;
+    background-color: $disabledBackground;
+    color: $disabledColor;
 
     &:hover {
       opacity: 1;

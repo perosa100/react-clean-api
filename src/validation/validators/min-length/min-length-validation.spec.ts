@@ -2,8 +2,7 @@ import { MinLengthValidation } from '@/validation/validators'
 import { InvalidFieldError } from '@/validation/errors'
 import faker from 'faker'
 
-const makeSut = (field: string): MinLengthValidation =>
-  new MinLengthValidation(field, 5)
+const makeSut = (field: string): MinLengthValidation => new MinLengthValidation(field, 5)
 
 describe('MinLengthValidation', () => {
   test('Should return error if value is invalid', () => {
